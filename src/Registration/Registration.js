@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import { Box } from "@mui/material";
+// import { Box } from "@mui/material";
 
 
 
@@ -14,7 +16,7 @@ const Registration = () => {
     });
 
     const postapi = async () => {
-        let a = await fetch("http://localhost:8080/user", {
+        let a = await fetch("https://eice-backend-2.onrender.com/user", {
             method: "post",
             body: JSON.stringify({
                 firstName: formData.firstName, lastName: formData.lastName,
@@ -26,8 +28,9 @@ const Registration = () => {
             }
         })
 
-        a = await a.json()
-        console.log(a)
+        a = await a.json()//this line covert the post data in json 
+        console.log(a , "response")
+        alert(a.msg)
 
     }
 
@@ -40,21 +43,33 @@ const Registration = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(formData); // You can replace this with your form submission logic
+        // console.log(formData); // You can replace this with your form submission logic
         // Reset the form after submission if needed
-        setFormData({
-            firstName: "",
-            lastName: "",
-            email: "",
-            message: "",
-        });
+        // setFormData({
+        //     firstName: "",
+        //     lastName: "",
+        //     email: "",
+        //     message: "",
+        // });
     };
 
     return (
-        <form onSubmit={handleSubmit}>
+        <Box
+        sx={{
+            background:
+              "radial-gradient(circle at 100% 100%, #023159, #1F476A, #F5F5F5)",
+            display: "flex",
+            minHeight: "100vh", 
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        
+        >
+        
+        <form onSubmit={handleSubmit} >
             <TextField
                 label="firstName"
-                name="name"
+                name="firstName"
                 // value={formData.firstName}
                 onChange={handleChange}
                 margin="normal"
@@ -64,7 +79,7 @@ const Registration = () => {
             />
             <TextField
                 label="lastName"
-                name="lastname"
+                name="lastName"
                 //   value={formData.lastName}
                 onChange={handleChange}
                 margin="normal"
@@ -107,8 +122,10 @@ const Registration = () => {
             </Button>
 
         </form>
+        </Box>
     );
 };
+
 
 
 
